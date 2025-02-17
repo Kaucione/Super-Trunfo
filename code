@@ -111,8 +111,8 @@ int main() {
 		
  //comparar os valores das cartas
 
-	printf("O jogo terá quantos participantes?\n");
-	printf(" (2) (3) (4)\n");
+	printf("\nO jogo terá quantos participantes?\n");
+	printf("\n (2) (3) (4)\n");
         scanf("%d", &participantes);
         
 		switch (participantes) {

@@ -4,6 +4,7 @@
 
 // Estrutura com dados derivados para armazenar os atributos da carta
 int opcao;
+int participantes;
 typedef struct {
     char continente[5];
     char Pais[36];
@@ -93,8 +94,8 @@ int main() {
         printf("Super Poder: %.2lf\n", cidades[i].super_poder);
         printf("-----------------------------\n");
     }
-//comparar os valores das cartas
 
+ //Iniciar o jogo
 	printf("Vamos jogar?\n");
 	printf(" (1) Sim ou (2) Não\n");
         scanf("%d", &opcao);
@@ -102,10 +103,32 @@ int main() {
 		switch (opcao) {
 		case 1: 1;
 		printf("Iniciando o Jogo...");
+		break;
 		case 2: 2;
 	        printf("Cadastro feito com sucesso!");
+		break;
 		}
 		
- 
+ //comparar os valores das cartas
+
+	printf("O jogo terá quantos participantes?\n");
+	printf(" (2) (3) (4)\n");
+        scanf("%d", &participantes);
+        
+		switch (participantes) {
+		case 1: 2;
+		printf("Distribuindo cartas...\n");
+		printf("19 cartas para cada participante\n");
+		break;
+		case 2: 3;
+		printf("Distribuindo cartas...\n");
+		printf("12 cartas para cada participante\n");
+		break;
+		case 3: 4;
+		printf("Distribuindo cartas...\n");
+		printf("9 cartas para cada participante\n");
+		break;
+		}
+
 	
 }

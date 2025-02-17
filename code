@@ -2,7 +2,8 @@
 
 #define MAX_DE_CARTAS 36
 
-// Estrutura para armazenar os atributos da cidade
+// Estrutura com dados derivados para armazenar os atributos da carta
+
 typedef struct {
     char continente[5];
     char Pais[36];
@@ -16,24 +17,27 @@ typedef struct {
     double densidade_populacional;
     double PIB_per_capita;
     double super_poder;
-} Carta;
+} Carta; 
 
 int main() {
     Carta cidades[MAX_DE_CARTAS]; // Array para armazenar até 36 cartas
     int i, num_cartas;
 
+    //cabeçalho
     printf("*************************\n");
     printf("  Bem-vindo ao Super Trunfo\n");
     printf("*************************\n");
 
+    //o usuario deve escolher de 1 a 36 cartas para cadastrar
     printf("Quantas cartas deseja cadastrar (máximo %d)? ", MAX_DE_CARTAS);
     scanf("%d", &num_cartas);
 
+    //caso usuário coloque 0 ou acima de 36 cartas, o codigo retornará uma mensagem de inválido
     if (num_cartas > MAX_DE_CARTAS || num_cartas <= 0) {
         printf("Número inválido de cartas!\n");
         return 1;
     }
-
+    //cadrastro das cartas (indices )
     for (i = 0; i < num_cartas; i++) {
         printf("\nCadastro da Carta %d\n", i + 1);
 
@@ -68,11 +72,11 @@ int main() {
         cidades[i].densidade_populacional = cidades[i].populacao / cidades[i].area;
         cidades[i].PIB_per_capita = cidades[i].PIB / cidades[i].populacao;
 
-        // Super poder fictício (ajustável)
+        // Super poder 
         cidades[i].super_poder = cidades[i].PIB_per_capita * cidades[i].pontos_turisticos;
     }
 
-    // Exibir as cartas cadastradas
+    // Exibição das cartas cadastradas
         printf("\nCartas cadastradas:\n");
     for (i = 0; i < num_cartas; i++) {
         printf("\n-----------------------------\n");
@@ -89,6 +93,18 @@ int main() {
         printf("Super Poder: %.2lf\n", cidades[i].super_poder);
         printf("-----------------------------\n");
     }
+//comparar os valores das cartas
 
-    return 0;
+        printf("Vamos jogar?\n");
+        printf("Sim ou Não\n");
+        
+		if i == sim
+		printf("Iniciando o Jogo");
+		else == não
+        printf("Cadastro feito com sucesso!");
+		
+		
+	}
+	 return 0; 
+	
 }

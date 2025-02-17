@@ -3,7 +3,7 @@
 #define MAX_DE_CARTAS 36
 
 // Estrutura com dados derivados para armazenar os atributos da carta
-
+int opcao;
 typedef struct {
     char continente[5];
     char Pais[36];
@@ -95,16 +95,17 @@ int main() {
     }
 //comparar os valores das cartas
 
-        printf("Vamos jogar?\n");
-        printf("Sim ou Não\n");
+	printf("Vamos jogar?\n");
+	printf(" (1) Sim ou (2) Não\n");
+        scanf("%d", &opcao);
         
-		if i == sim
-		printf("Iniciando o Jogo");
-		else == não
-        printf("Cadastro feito com sucesso!");
+		switch (opcao) {
+		case 1: 1;
+		printf("Iniciando o Jogo...");
+		case 2: 2;
+	        printf("Cadastro feito com sucesso!");
+		}
 		
-		
-	}
-	 return 0; 
+ 
 	
 }

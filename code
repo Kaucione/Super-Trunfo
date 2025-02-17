@@ -1,0 +1,94 @@
+#include <stdio.h>
+
+#define MAX_DE_CARTAS 36
+
+// Estrutura para armazenar os atributos da cidade
+typedef struct {
+    char continente[5];
+    char Pais[36];
+    char estado[36];
+    char nome_cidade[36];
+    int cod_carta;
+    int populacao;
+    double area;
+    double PIB;
+    int pontos_turisticos;
+    double densidade_populacional;
+    double PIB_per_capita;
+    double super_poder;
+} Carta;
+
+int main() {
+    Carta cidades[MAX_DE_CARTAS]; // Array para armazenar até 36 cartas
+    int i, num_cartas;
+
+    printf("*************************\n");
+    printf("  Bem-vindo ao Super Trunfo\n");
+    printf("*************************\n");
+
+    printf("Quantas cartas deseja cadastrar (máximo %d)? ", MAX_DE_CARTAS);
+    scanf("%d", &num_cartas);
+
+    if (num_cartas > MAX_DE_CARTAS || num_cartas <= 0) {
+        printf("Número inválido de cartas!\n");
+        return 1;
+    }
+
+    for (i = 0; i < num_cartas; i++) {
+        printf("\nCadastro da Carta %d\n", i + 1);
+
+        printf("Insira o código da carta:\n ");
+        scanf("%d", &cidades[i].cod_carta);
+
+        printf("Insira o nome da Continente:\n ");
+        scanf(" %[^\n]", &cidades[i].continente);
+
+        printf("Insira o País:\n ");
+        scanf(" %[^\n]", &cidades[i].Pais);
+        
+        printf("Insira o estado:\n ");
+        scanf(" %[^\n]", &cidades[i].estado);
+        
+        printf("Insira o cidade:\n ");
+        scanf(" %[^\n]", &cidades[i].nome_cidade);
+
+        printf("Insira a população:\n ");
+        scanf("%d", &cidades[i].populacao);
+
+        printf("Insira a área (km²):\n");
+        scanf("%lf", &cidades[i].area);
+
+        printf("Insira o PIB (em bilhões):\n ");
+        scanf("%lf", &cidades[i].PIB);
+
+        printf("Insira o número de pontos turísticos:\n ");
+        scanf("%d", &cidades[i].pontos_turisticos);
+
+        // Cálculo de densidade populacional e PIB per capita
+        cidades[i].densidade_populacional = cidades[i].populacao / cidades[i].area;
+        cidades[i].PIB_per_capita = cidades[i].PIB / cidades[i].populacao;
+
+        // Super poder fictício (ajustável)
+        cidades[i].super_poder = cidades[i].PIB_per_capita * cidades[i].pontos_turisticos;
+    }
+
+    // Exibir as cartas cadastradas
+        printf("\nCartas cadastradas:\n");
+    for (i = 0; i < num_cartas; i++) {
+        printf("\n-----------------------------\n");
+        printf("Código: %d\n", cidades[i].cod_carta);
+        printf("Cidade: %s\n", cidades[i].nome_cidade);
+        printf("Continente: %s\n", cidades[i].continente);
+        printf("Estado: %s\n", cidades[i].estado);
+        printf("População: %d habitantes\n", cidades[i].populacao);
+        printf("Área: %.2lf km²\n", cidades[i].area);
+        printf("PIB: %.2lf bilhões\n", cidades[i].PIB);
+        printf("Pontos turísticos: %d\n", cidades[i].pontos_turisticos);
+        printf("Densidade Populacional: %.2lf hab/km²\n", cidades[i].densidade_populacional);
+        printf("PIB per capita: %.2lf\n", cidades[i].PIB_per_capita);
+        printf("Super Poder: %.2lf\n", cidades[i].super_poder);
+        printf("-----------------------------\n");
+    }
+
+    return 0;
+}

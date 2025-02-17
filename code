@@ -110,25 +110,26 @@ int main() {
 		}
 		
  //comparar os valores das cartas
-
+	printf("\n-----------------------------\n");
 	printf("\nO jogo terá quantos participantes?\n");
 	printf("\n (2) (3) (4)\n");
         scanf("%d", &participantes);
         
 		switch (participantes) {
 		case 1: 2;
-		printf("Distribuindo cartas...\n");
+		printf("Distribuindo cartas aleatórias...\n");
 		printf("19 cartas para cada participante\n");
 		break;
 		case 2: 3;
-		printf("Distribuindo cartas...\n");
+		printf("Distribuindo cartas aleatórias...\n");
 		printf("12 cartas para cada participante\n");
 		break;
 		case 3: 4;
-		printf("Distribuindo cartas...\n");
+		printf("Distribuindo cartas aleatórias...\n");
 		printf("9 cartas para cada participante\n");
 		break;
 		}
 
+	printf("\n-----------------------------\n");
 	
 }

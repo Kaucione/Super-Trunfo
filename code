@@ -90,12 +90,12 @@ int main() {
         printf("Continente: %s\n", cidades[i].continente);
         printf("Estado: %s\n", cidades[i].estado);
         printf("População: %d habitantes\n", cidades[i].populacao);
-        printf("Área: %.2lf km²\n", cidades[i].area);
-        printf("PIB: %.2lf bilhões\n", cidades[i].PIB);
+        printf("Área: %f km²\n", cidades[i].area);
+        printf("PIB: %f bilhões\n", cidades[i].PIB);
         printf("Pontos turísticos: %d\n", cidades[i].pontos_turisticos);
-        printf("Densidade Populacional: %.2lf hab/km²\n", cidades[i].densidade_populacional);
-        printf("PIB per capita: %.2lf\n", cidades[i].PIB_per_capita);
-        printf("Super Poder: %.2lf\n", cidades[i].super_poder);
+        printf("Densidade Populacional: %f hab/km²\n", cidades[i].densidade_populacional);
+        printf("PIB per capita: %f\n", cidades[i].PIB_per_capita);
+        printf("Super Poder: %f\n", cidades[i].super_poder);
         printf("-----------------------------\n");
     }
 
@@ -110,9 +110,6 @@ int main() {
         printf("Cadastro feito com sucesso!\n");
         return 0;
     }
-
-    return 0;
-}
 
 void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[], int total_cartas) {
     int usadas[MAX_DE_CARTAS] = {0};
@@ -157,4 +154,5 @@ void jogar(Carta jogador[], Carta computador[]) {
             printf("Empate!\n");
         }
     }
+return 0;
 }

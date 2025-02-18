@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define MAX_DE_CARTAS 36
+#define CARTAS_POR_JOGADOR 19
 
-// Estrutura com dados derivados para armazenar os atributos da carta
-int opcao;
-int participantes;
+// Estrutura para armazenar os atributos da carta
 typedef struct {
     char continente[5];
     char Pais[36];
@@ -20,26 +21,31 @@ typedef struct {
     double super_poder;
 } Carta; 
 
+// Funções
+void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[], int total_cartas);
+void jogar(Carta jogador[], Carta computador[]);
+
 int main() {
     Carta cidades[MAX_DE_CARTAS]; // Array para armazenar até 36 cartas
-    int i, num_cartas;
+    int num_cartas, opcao;
 
-    //cabeçalho
+    // Cabeçalho
     printf("*************************\n");
     printf("  Bem-vindo ao Super Trunfo\n");
     printf("*************************\n");
 
-    //o usuario deve escolher de 1 a 36 cartas para cadastrar
+    // O usuário deve escolher de 1 a 36 cartas para cadastrar
     printf("Quantas cartas deseja cadastrar (máximo %d)? ", MAX_DE_CARTAS);
     scanf("%d", &num_cartas);
 
-    //caso usuário coloque 0 ou acima de 36 cartas, o codigo retornará uma mensagem de inválido
+    // Validação do número de cartas
     if (num_cartas > MAX_DE_CARTAS || num_cartas <= 0) {
         printf("Número inválido de cartas!\n");
         return 1;
     }
-    //cadrastro das cartas (indices )
-    for (i = 0; i < num_cartas; i++) {
+
+    // Cadastro das cartas
+    for (int i = 0; i < num_cartas; i++) {
         printf("\nCadastro da Carta %d\n", i + 1);
 
         printf("Insira o código da carta:\n ");
@@ -72,14 +78,12 @@ int main() {
         // Cálculo de densidade populacional e PIB per capita
         cidades[i].densidade_populacional = cidades[i].populacao / cidades[i].area;
         cidades[i].PIB_per_capita = cidades[i].PIB / cidades[i].populacao;
-
-        // Super poder 
         cidades[i].super_poder = cidades[i].PIB_per_capita * cidades[i].pontos_turisticos;
     }
 
     // Exibição das cartas cadastradas
-        printf("\nCartas cadastradas:\n");
-    for (i = 0; i < num_cartas; i++) {
+    printf("\nCartas cadastradas:\n");
+    for (int i = 0; i < num_cartas; i++) {
         printf("\n-----------------------------\n");
         printf("Código: %d\n", cidades[i].cod_carta);
         printf("Cidade: %s\n", cidades[i].nome_cidade);
@@ -95,41 +99,62 @@ int main() {
         printf("-----------------------------\n");
     }
 
- //Iniciar o jogo
-	printf("Vamos jogar?\n");
-	printf(" (1) Sim ou (2) Não\n");
-        scanf("%d", &opcao);
-        
-		switch (opcao) {
-		case 1: 1;
-		printf("Iniciando o Jogo...");
-		break;
-		case 2: 2;
-	        printf("Cadastro feito com sucesso!");
-		break;
-		}
-		
- //comparar os valores das cartas
-	printf("\n-----------------------------\n");
-	printf("\nO jogo terá quantos participantes?\n");
-	printf("\n (2) (3) (4)\n");
-        scanf("%d", &participantes);
-        
-		switch (participantes) {
-		case 1: 2;
-		printf("Distribuindo cartas aleatórias...\n");
-		printf("19 cartas para cada participante\n");
-		break;
-		case 2: 3;
-		printf("Distribuindo cartas aleatórias...\n");
-		printf("12 cartas para cada participante\n");
-		break;
-		case 3: 4;
-		printf("Distribuindo cartas aleatórias...\n");
-		printf("9 cartas para cada participante\n");
-		break;
-		}
+    // Iniciar o jogo
+    printf("Vamos jogar?\n");
+    printf("(1) Sim ou (2) Não\n");
+    scanf("%d", &opcao);
+    
+    if (opcao == 1) {
+        printf("Iniciando o Jogo...\n");
+    } else {
+        printf("Cadastro feito com sucesso!\n");
+        return 0;
+    }
 
-	printf("\n-----------------------------\n");
-	
+    return 0;
+}
+
+void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[], int total_cartas) {
+    int usadas[MAX_DE_CARTAS] = {0};
+    srand(time(0));
+
+    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
+        int indice;
+        do {
+            indice = rand() % total_cartas;
+        } while (usadas[indice]);
+        
+        jogador[i] = baralho[indice];
+        usadas[indice] = 1;
+    }
+
+    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
+        int indice;
+        do {
+            indice = rand() % total_cartas;
+        } while (usadas[indice]);
+        
+        computador[i] = baralho[indice];
+        usadas[indice] = 1;
+    }
+}
+
+void jogar(Carta jogador[], Carta computador[]) {
+    int pontos_jogador = 0, pontos_computador = 0;
+
+    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
+        printf("\nRodada %d:\n", i + 1);
+        printf("Sua carta: %s (Super Poder: %.2lf)\n", jogador[i].nome_cidade, jogador[i].super_poder);
+        printf("Carta do computador: %s (Super Poder: %.2lf)\n", computador[i].nome_cidade, computador[i].super_poder);
+        
+        if (jogador[i].super_poder > computador[i].super_poder) {
+            printf("Você venceu esta rodada!\n");
+            pontos_jogador++;
+        } else if (jogador[i].super_poder < computador[i].super_poder) {
+            printf("O computador venceu esta rodada!\n");
+            pontos_computador++;
+        } else {
+            printf("Empate!\n");
+        }
+    }
 }

@@ -193,10 +193,10 @@ void jogar(Carta jogador[], Carta computador[]) {
 void escolher_atributo(int *atributo) {
     do {
         scanf("%d", atributo);
-        if (*atributo < 1 || *atributo > 4) {
+        if (*atributo < 1 || *atributo > 6) {
             printf("Opção inválida! Tente novamente: ");
         }
-    } while (*atributo < 1 || *atributo > 4);
+    } while (*atributo < 1 || *atributo > 6);
 }
 
 void imprimir_carta(Carta carta) {
@@ -226,13 +226,13 @@ void cadastrar_cartas(Carta baralho[], int *total_cartas) {
         printf("Digite os dados da carta %d\n", i + 1);
 
         printf("Continente: ");
-        scanf(" %19[^\n]", baralho[i].continente);
+        scanf(" %18[^\n]", baralho[i].continente);
         printf("País: ");
-        scanf(" %19[^\n]", baralho[i].Pais);
+        scanf(" %18[^\n]", baralho[i].Pais);
         printf("Estado: ");
-        scanf(" %19[^\n]", baralho[i].estado);
+        scanf(" %18[^\n]", baralho[i].estado);
         printf("Cidade: ");
-        scanf(" %19[^\n]", baralho[i].nome_cidade);
+        scanf(" %18[^\n]", baralho[i].nome_cidade);
         printf("Código da carta: ");
         scanf("%d", &baralho[i].cod_carta);
         printf("População: ");

@@ -3,11 +3,10 @@
 #include <time.h>
 
 #define MAX_DE_CARTAS 36
-#define CARTAS_POR_JOGADOR 19
+#define CARTAS_POR_JOGADOR 18
 
-// Estrutura para armazenar os atributos da carta
 typedef struct {
-    char continente[5];
+    char continente[20];
     char Pais[36];
     char estado[36];
     char nome_cidade[36];
@@ -19,140 +18,238 @@ typedef struct {
     double densidade_populacional;
     double PIB_per_capita;
     double super_poder;
-} Carta; 
+} Carta;
 
-// Funções
-void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[], int total_cartas);
+void embaralhar_cartas(Carta baralho[], int total_cartas);
+void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[]);
 void jogar(Carta jogador[], Carta computador[]);
+void escolher_atributo(int *atributo);
+void imprimir_carta(Carta carta);
+
+
+void cadastrar_cartas(Carta baralho[], int *total_cartas);
 
 int main() {
-    Carta cidades[MAX_DE_CARTAS]; // Array para armazenar até 36 cartas
-    int num_cartas, opcao;
+    Carta cidades[MAX_DE_CARTAS] = {
+        {"África", "Egito", "Cairo", "Cairo", 1, 9000000, 606, 300, 10, 14851.47, 3333.33, 333333.33},
+        {"África", "África do Sul", "Cidade do Cabo", "Cidade do Cabo", 2, 4000000, 400, 120, 20, 10000.00, 3000.00, 200000.00},
+        {"América", "Brasil", "São Paulo", "São Paulo", 3, 12000000, 1500, 450, 15, 80000.00, 6666.66, 150000.00},
+        {"América", "Estados Unidos", "Califórnia", "Los Angeles", 4, 4000000, 1300, 700, 12, 170000.00, 17000.00, 220000.00},
+        {"Ásia", "Japão", "Tóquio", "Tóquio", 5, 14000000, 900, 1500, 30, 100000.00, 7100.00, 300000.00},
+        {"Europa", "França", "Paris", "Paris", 6, 11000000, 105, 800, 10, 70000.00, 6363.63, 250000.00},
+        {"Ásia", "China", "Pequim", "Pequim", 7, 12000000, 1600, 2000, 25, 250000.00, 20833.33, 300000.00},
+        {"América", "Argentina", "Buenos Aires", "Buenos Aires", 8, 3000000, 200, 100, 8, 40000.00, 13333.33, 100000.00},
+        {"América", "Chile", "Santiago", "Santiago", 9, 5000000, 600, 150, 6, 50000.00, 10000.00, 100000.00},
+        {"Europa", "Reino Unido", "Londres", "Londres", 10, 9000000, 1500, 500, 20, 90000.00, 10000.00, 180000.00},
+        {"Oceania", "Austrália", "Sydney", "Sydney", 11, 5000000, 2500, 500, 25, 95000.00, 19000.00, 200000.00},
+        {"América", "México", "Cidade do México", "Cidade do México", 12, 9000000, 1500, 400, 15, 60000.00, 6666.66, 170000.00},
+        {"África", "Marrocos", "Casablanca", "Casablanca", 13, 3000000, 300, 80, 5, 25000.00, 8333.33, 50000.00},
+        {"Europa", "Itália", "Roma", "Roma", 14, 2500000, 500, 1200, 18, 95000.00, 38000.00, 150000.00},
+        {"Ásia", "Índia", "Nova Délhi", "Nova Délhi", 15, 13000000, 1200, 500, 28, 150000.00, 11538.46, 200000.00},
+        {"América", "Canadá", "Toronto", "Toronto", 16, 3000000, 900, 450, 12, 70000.00, 23333.33, 120000.00},
+        {"África", "Quênia", "Nairobi", "Nairobi", 17, 4000000, 500, 100, 5, 15000.00, 3750.00, 40000.00},
+        {"América", "Peru", "Lima", "Lima", 18, 8000000, 600, 300, 7, 35000.00, 4375.00, 90000.00},
+        {"Ásia", "Indonésia", "Jacarta", "Jacarta", 19, 10000000, 1000, 120, 18, 60000.00, 6000.00, 160000.00},
+        {"Oceania", "Nova Zelândia", "Auckland", "Auckland", 20, 1500000, 450, 60, 4, 50000.00, 33333.33, 70000.00},
+        {"América", "Colômbia", "Bogotá", "Bogotá", 21, 7000000, 450, 350, 10, 40000.00, 5714.28, 110000.00},
+        {"Europa", "Espanha", "Madri", "Madri", 22, 6500000, 600, 700, 20, 75000.00, 11538.46, 140000.00},
+        {"África", "Nigéria", "Lagos", "Lagos", 23, 14000000, 1000, 300, 22, 100000.00, 7142.85, 200000.00},
+        {"Ásia", "Singapura", "Singapura", "Singapura", 24, 5000000, 720, 2000, 30, 150000.00, 30000.00, 250000.00},
+        {"América", "Cuba", "Havana", "Havana", 25, 2200000, 550, 50, 8, 25000.00, 11363.63, 80000.00},
+        {"Europa", "Alemanha", "Berlim", "Berlim", 26, 3500000, 450, 900, 12, 70000.00, 20000.00, 130000.00},
+        {"África", "Egito", "Alexandria", "Alexandria", 27, 5000000, 1200, 250, 15, 50000.00, 10000.00, 120000.00},
+        {"América", "Chile", "Valparaíso", "Valparaíso", 28, 3500000, 400, 180, 8, 40000.00, 11428.57, 70000.00},
+        {"Ásia", "Coreia do Sul", "Seul", "Seul", 29, 9000000, 600, 1200, 35, 130000.00, 14444.44, 230000.00},
+        {"Oceania", "Papua Nova Guiné", "Port Moresby", "Port Moresby", 30, 500000, 200, 50, 3, 10000.00, 20000.00, 30000.00},
+        {"América", "Venezuela", "Caracas", "Caracas", 31, 3200000, 800, 120, 10, 35000.00, 10937.50, 60000.00},
+        {"África", "Tanzânia", "Dar es Salaam", "Dar es Salaam", 32, 5000000, 900, 150, 13, 20000.00, 4000.00, 50000.00},
+        {"Europa", "Portugal", "Lisboa", "Lisboa", 33, 3000000, 150, 1000, 15, 65000.00, 21666.66, 120000.00},
+        {"América", "Uruguai", "Montevidéu", "Montevidéu", 34, 1500000, 500, 100, 6, 20000.00, 13333.33, 60000.00},
+        {"Ásia", "Malásia", "Kuala Lumpur", "Kuala Lumpur", 35, 5000000, 700, 150, 15, 30000.00, 6000.00, 90000.00},
+        {"Oceania", "Fiji", "Suva", "Suva", 36, 300000, 70, 10, 1, 5000.00, 16666.66, 15000.00}
+    };
 
-    // Cabeçalho
+    int num_cartas = MAX_DE_CARTAS, opcao;
+
     printf("*************************\n");
     printf("  Bem-vindo ao Super Trunfo\n");
     printf("*************************\n");
 
-    // O usuário deve escolher de 1 a 36 cartas para cadastrar
-    printf("Quantas cartas deseja cadastrar (máximo %d)? ", MAX_DE_CARTAS);
-    scanf("%d", &num_cartas);
-
-    // Validação do número de cartas
-    if (num_cartas > MAX_DE_CARTAS || num_cartas <= 0) {
-        printf("Número inválido de cartas!\n");
-        return 1;
-    }
-
-    // Cadastro das cartas
-    for (int i = 0; i < num_cartas; i++) {
-        printf("\nCadastro da Carta %d\n", i + 1);
-
-        printf("Insira o código da carta:\n ");
-        scanf("%d", &cidades[i].cod_carta);
-
-        printf("Insira o nome da Continente:\n ");
-        scanf(" %[^\n]", &cidades[i].continente);
-
-        printf("Insira o País:\n ");
-        scanf(" %[^\n]", &cidades[i].Pais);
-        
-        printf("Insira o estado:\n ");
-        scanf(" %[^\n]", &cidades[i].estado);
-        
-        printf("Insira o cidade:\n ");
-        scanf(" %[^\n]", &cidades[i].nome_cidade);
-
-        printf("Insira a população:\n ");
-        scanf("%d", &cidades[i].populacao);
-
-        printf("Insira a área (km²):\n");
-        scanf("%lf", &cidades[i].area);
-
-        printf("Insira o PIB (em bilhões):\n ");
-        scanf("%lf", &cidades[i].PIB);
-
-        printf("Insira o número de pontos turísticos:\n ");
-        scanf("%d", &cidades[i].pontos_turisticos);
-
-        // Cálculo de densidade populacional e PIB per capita
-        cidades[i].densidade_populacional = cidades[i].populacao / cidades[i].area;
-        cidades[i].PIB_per_capita = cidades[i].PIB / cidades[i].populacao;
-        cidades[i].super_poder = cidades[i].PIB_per_capita * cidades[i].pontos_turisticos;
-    }
-
-    // Exibição das cartas cadastradas
-    printf("\nCartas cadastradas:\n");
-    for (int i = 0; i < num_cartas; i++) {
-        printf("\n-----------------------------\n");
-        printf("Código: %d\n", cidades[i].cod_carta);
-        printf("Cidade: %s\n", cidades[i].nome_cidade);
-        printf("Continente: %s\n", cidades[i].continente);
-        printf("Estado: %s\n", cidades[i].estado);
-        printf("População: %d habitantes\n", cidades[i].populacao);
-        printf("Área: %f km²\n", cidades[i].area);
-        printf("PIB: %f bilhões\n", cidades[i].PIB);
-        printf("Pontos turísticos: %d\n", cidades[i].pontos_turisticos);
-        printf("Densidade Populacional: %f hab/km²\n", cidades[i].densidade_populacional);
-        printf("PIB per capita: %f\n", cidades[i].PIB_per_capita);
-        printf("Super Poder: %f\n", cidades[i].super_poder);
-        printf("-----------------------------\n");
-    }
-
-    // Iniciar o jogo
-    printf("Vamos jogar?\n");
-    printf("(1) Sim ou (2) Não\n");
+    printf("Você gostaria de:\n(1) Cadastrar suas próprias cartas\n(2) Usar as cartas do sistema\n");
     scanf("%d", &opcao);
-    
+
+    if (opcao == 1) {
+        cadastrar_cartas(cidades, &num_cartas);
+    }
+
+    printf("Podemos iniciar? (1) Sim ou (2) Não\n");
+    scanf("%d", &opcao);
+
     if (opcao == 1) {
         printf("Iniciando o Jogo...\n");
+
+        Carta jogador[CARTAS_POR_JOGADOR];
+        Carta computador[CARTAS_POR_JOGADOR];
+
+        embaralhar_cartas(cidades, num_cartas);
+        distribuir_cartas(cidades, jogador, computador);
+        jogar(jogador, computador);
     } else {
         printf("Cadastro feito com sucesso!\n");
-        return 0;
     }
 
-void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[], int total_cartas) {
-    int usadas[MAX_DE_CARTAS] = {0};
+    return 0;
+}
+
+void embaralhar_cartas(Carta baralho[], int total_cartas) {
     srand(time(0));
-
-    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
-        int indice;
-        do {
-            indice = rand() % total_cartas;
-        } while (usadas[indice]);
-        
-        jogador[i] = baralho[indice];
-        usadas[indice] = 1;
-    }
-
-    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
-        int indice;
-        do {
-            indice = rand() % total_cartas;
-        } while (usadas[indice]);
-        
-        computador[i] = baralho[indice];
-        usadas[indice] = 1;
+    for (int i = 0; i < total_cartas; i++) {
+        int j = rand() % total_cartas;
+        Carta temp = baralho[i];
+        baralho[i] = baralho[j];
+        baralho[j] = temp;
     }
 }
 
+void distribuir_cartas(Carta baralho[], Carta jogador[], Carta computador[]) {
+    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
+        jogador[i] = baralho[i];
+        computador[i] = baralho[i + CARTAS_POR_JOGADOR];
+    }
+}
+
+
 void jogar(Carta jogador[], Carta computador[]) {
+    int rodada = 1;
     int pontos_jogador = 0, pontos_computador = 0;
 
-    for (int i = 0; i < CARTAS_POR_JOGADOR; i++) {
-        printf("\nRodada %d:\n", i + 1);
-        printf("Sua carta: %s (Super Poder: %.2lf)\n", jogador[i].nome_cidade, jogador[i].super_poder);
-        printf("Carta do computador: %s (Super Poder: %.2lf)\n", computador[i].nome_cidade, computador[i].super_poder);
-        
-        if (jogador[i].super_poder > computador[i].super_poder) {
-            printf("Você venceu esta rodada!\n");
+    while (rodada <= CARTAS_POR_JOGADOR) {
+        printf("\nRodada %d\n", rodada);
+
+	printf("\nSua carta: ");
+        imprimir_carta(jogador[rodada - 1]);
+	
+        printf("Escolha um atributo: (1) População, (2)     Area, (3) PIB,  (4) Pontos Turisticos, (5) Densidade populacional, (6) Super Poder\n");
+        int atributo;
+        escolher_atributo(&atributo);
+
+        printf("\nCarta do computador:\n ");
+        imprimir_carta(computador[rodada - 1]);
+
+        double valor_jogador, valor_computador;
+        switch (atributo) {
+            case 1:
+                valor_jogador = jogador[rodada - 1].populacao;
+                valor_computador = computador[rodada - 1].populacao;
+                break;
+            case 2:
+                valor_jogador = jogador[rodada - 1].area;
+                valor_computador = computador[rodada - 1].area;
+                break;
+            case 3:
+                valor_jogador = jogador[rodada - 1].PIB;
+                valor_computador = computador[rodada - 1].PIB;
+                break;
+            case 4:
+                valor_jogador = jogador[rodada - 1].pontos_turisticos;
+                valor_computador = computador[rodada - 1].pontos_turisticos;
+            break;
+            case 5:
+                valor_jogador = jogador[rodada - 1].densidade_populacional;
+                valor_computador = computador[rodada - 1].densidade_populacional;
+                break;
+            case 6:
+                valor_jogador = jogador[rodada - 1].super_poder;
+                valor_computador = computador[rodada - 1].super_poder;
+                break;
+    
+            default:
+                printf("Opção inválida! Atributo não selecionado corretamente.\n");
+                return;
+        }
+
+        if (valor_jogador > valor_computador) {
+            printf("Você ganhou esta rodada!\n");
             pontos_jogador++;
-        } else if (jogador[i].super_poder < computador[i].super_poder) {
-            printf("O computador venceu esta rodada!\n");
+        } else if (valor_jogador < valor_computador) {
+            printf("O computador ganhou esta rodada!\n");
             pontos_computador++;
         } else {
-            printf("Empate!\n");
+            printf("Empate na rodada!\n");
         }
+
+        rodada++;
     }
-return 0;
+
+    if (pontos_jogador > pontos_computador) {
+        printf("Você venceu o jogo!\n");
+    } else if (pontos_jogador < pontos_computador) {
+        printf("Você perdeu o jogo. O computador venceu.\n");
+    } else {
+        printf("O jogo terminou em empate!\n");
+    }
+}
+
+void escolher_atributo(int *atributo) {
+    do {
+        scanf("%d", atributo);
+        if (*atributo < 1 || *atributo > 4) {
+            printf("Opção inválida! Tente novamente: ");
+        }
+    } while (*atributo < 1 || *atributo > 4);
+}
+
+void imprimir_carta(Carta carta) {
+    printf("Continente: %s\n", carta.continente);
+    printf("País: %s\n", carta.Pais);
+    printf("Cidade: %s\n", carta.nome_cidade);
+    printf("População: %d\n", carta.populacao);
+    printf("Área: %.2f\n", carta.area);
+    printf("PIB: %.2f\n", carta.PIB);
+    printf("Pontos turísticos: %d\n", carta.pontos_turisticos);
+    printf("Densidade populacional: %.2f\n", carta.densidade_populacional);
+    printf("PIB per capita: %.2f\n", carta.PIB_per_capita);
+    printf("Super poder: %.2f\n", carta.super_poder);
+}
+
+void cadastrar_cartas(Carta baralho[], int *total_cartas) {
+    printf("Digite o número de cartas a cadastrar (máximo %d): ", MAX_DE_CARTAS);
+    int num_novas_cartas;
+    scanf("%d", &num_novas_cartas);
+
+    if (num_novas_cartas > MAX_DE_CARTAS) {
+        num_novas_cartas = MAX_DE_CARTAS;
+        printf("Número máximo de cartas atingido. Cadastrando até %d cartas.\n", MAX_DE_CARTAS);
+    }
+
+    for (int i = 0; i < num_novas_cartas; i++) {
+        printf("Digite os dados da carta %d\n", i + 1);
+
+        printf("Continente: ");
+        scanf(" %19[^\n]", baralho[i].continente);
+        printf("País: ");
+        scanf(" %19[^\n]", baralho[i].Pais);
+        printf("Estado: ");
+        scanf(" %19[^\n]", baralho[i].estado);
+        printf("Cidade: ");
+        scanf(" %19[^\n]", baralho[i].nome_cidade);
+        printf("Código da carta: ");
+        scanf("%d", &baralho[i].cod_carta);
+        printf("População: ");
+        scanf("%d", &baralho[i].populacao);
+        printf("Área: ");
+        scanf("%lf", &baralho[i].area);
+        printf("PIB: ");
+        scanf("%lf", &baralho[i].PIB);
+        printf("Pontos turísticos: ");
+        scanf("%d", &baralho[i].pontos_turisticos);
+        printf("Densidade populacional: ");
+        scanf("%lf", &baralho[i].densidade_populacional);
+        printf("PIB per capita: ");
+        scanf("%lf", &baralho[i].PIB_per_capita);
+        printf("Super poder: ");
+        scanf("%lf", &baralho[i].super_poder);
+    }
+
+    *total_cartas = num_novas_cartas;
 }

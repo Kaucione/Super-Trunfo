@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_DE_CARTAS 32
-#define CARTAS_POR_JOGADOR 16
+#define MAX_DE_CARTAS 36
+#define CARTAS_POR_JOGADOR 18
 
 typedef struct {
     char continente[20];
-    char Pais[32];
-    char estado[32];
-    char nome_cidade[32];
-    char cod_carta[32];
+    char Pais[36];
+    char estado[36];
+    char nome_cidade[36];
+    int cod_carta;
     int populacao;
     double area;
     double PIB;
@@ -226,15 +226,15 @@ void cadastrar_cartas(Carta baralho[], int *total_cartas) {
         printf("Digite os dados da carta %d\n", i + 1);
 
         printf("Continente: ");
-        scanf(" %16[^\n]", baralho[i].continente);
+        scanf(" %18[^\n]", baralho[i].continente);
         printf("País: ");
-        scanf(" %16[^\n]", baralho[i].Pais);
+        scanf(" %18[^\n]", baralho[i].Pais);
         printf("Estado: ");
-        scanf(" %16[^\n]", baralho[i].estado);
+        scanf(" %18[^\n]", baralho[i].estado);
         printf("Cidade: ");
-        scanf(" %16[^\n]", baralho[i].nome_cidade);
+        scanf(" %18[^\n]", baralho[i].nome_cidade);
         printf("Código da carta: ");
-        scanf("%16[^\n]", &baralho[i].cod_carta);
+        scanf("%d", &baralho[i].cod_carta);
         printf("População: ");
         scanf("%d", &baralho[i].populacao);
         printf("Área: ");

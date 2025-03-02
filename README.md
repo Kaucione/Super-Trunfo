@@ -2,7 +2,7 @@
 # Super Trunfo - Cidades do Mundo
 
 ## Sobre o Jogo
-Este programa implementa uma versão do jogo "Super Trunfo" baseada em cidades do mundo. O jogo permite cadastrar cartas personalizadas ou utilizar um conjunto de cartas padrão. O jogador compete contra o computador em diversas rodadas, escolhendo atributos para disputar.
+Este programa implementa uma versão do jogo "Super Trunfo" baseada em cidades do mundo, o jogo foi desenvolvido como atividade prática para a matéria de Introdução à Programação de Computadores (ADS - Estacio). O jogo permite ao usuário cadastrar cartas personalizadas ou utilizar um conjunto padrão de cartas, embaralhá-las e jogar contra o computador escolhendo atributos das cartas para competir rodada a rodada.
 
 ## Funcionalidades
 - Cadastro de cartas personalizadas.
@@ -43,9 +43,11 @@ O código utiliza uma estrutura `Carta` para armazenar informações sobre cada 
    - **2:** Usar cartas padrão.
    - **3:** Jogar.
    - **4:** Sair.
-3. No modo de jogo, escolha um atributo para disputar.
-4. O computador também possui cartas, e o vencedor de cada rodada é determinado pelo maior valor do atributo escolhido.
-5. Após todas as rodadas, o programa exibe o placar final.
+3. Escolher a entrada das cartas.
+4. Escolher iniciar ou sair.
+5. No modo de jogo, escolha um atributo para disputar.
+6. O computador também possui cartas, e o vencedor de cada rodada é determinado pelo maior valor do atributo escolhido.
+7. Após todas as rodadas, o programa exibe o placar final.
 
 ## Pré-requisitos
 - Compilador C (GCC recomendado)

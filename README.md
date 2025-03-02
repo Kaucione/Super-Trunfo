@@ -43,11 +43,11 @@ O código utiliza uma estrutura `Carta` para armazenar informações sobre cada 
    - **2:** Usar cartas padrão.
    - **3:** Jogar.
    - **4:** Sair.
-3. Escolher a entrada das cartas.
-4. Escolher iniciar ou sair.
-5. No modo de jogo, escolha um atributo para disputar.
-6. O computador também possui cartas, e o vencedor de cada rodada é determinado pelo maior valor do atributo escolhido.
-7. Após todas as rodadas, o programa exibe o placar final.
+2.1. Escolher a entrada das cartas.
+2.2. Escolher iniciar ou sair.
+3. No modo de jogo, escolha um atributo para disputar.
+4. O computador também possui cartas, e o vencedor de cada rodada é determinado pelo maior valor do atributo escolhido.
+5. Após todas as rodadas, o programa exibe o placar final.
 
 ## Pré-requisitos
 - Compilador C (GCC recomendado)

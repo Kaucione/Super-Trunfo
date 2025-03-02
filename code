@@ -33,7 +33,7 @@ void CartasPadrao(Carta cartas[], int *quantidade);
 
 
 
-//interface inicial
+//interface inicial com estruturas de decisão
 int main() {
     srand(time(NULL));
     Carta cartas[MAX_DE_CARTAS];
@@ -142,7 +142,7 @@ void CartasPadrao(Carta cartas[], int *quantidade) {
 void escolher_atributo(int *atributo) {
     do {
         printf("Escolha um atributo:");
-        printf(" (1) População, (2) Área em M², (3) PIB,  (4) Pontos Turísticos, (5) Densidade populacional, (6) Super Poder, (7) PIB per capita\n");
+        printf(" (1) População, (2) Área, (3) PIB,  (4) Pontos Turísticos, (5) Densidade populacional, (6) Super Poder, (7) PIB per capita\n");
         scanf("%d", atributo);
         if (*atributo < 1 || *atributo > 7) {
             printf("Opção inválida. Escolha entre 1 e 7.\n");
@@ -229,48 +229,109 @@ void jogar(Carta cartas[], int quantidade) {
 
         double valor_jogador = 0, valor_computador = 0;
 
+//estruturas de decisão da rodada. Determinar o ganhador e perdedor
+
         switch (atributo) {
             case 1: 
                 valor_jogador = jogadorCartas[i].quant_populacao; 
-                valor_computador = computadorCartas[i].quant_populacao; 
+                valor_computador = computadorCartas[i].quant_populacao;
+                
+               if (valor_jogador > valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador < valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
             case 2: 	
                 valor_jogador = jogadorCartas[i].area; 
                 valor_computador = computadorCartas[i].area; 
+                
+                if (valor_jogador > valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador < valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
             case 3: 
                 valor_jogador = jogadorCartas[i].PIB; 
                 valor_computador = computadorCartas[i].PIB; 
+                
+                if (valor_jogador > valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador < valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
             case 4: 
                 valor_jogador = jogadorCartas[i].pontos_turisticos; 
                 valor_computador = computadorCartas[i].pontos_turisticos; 
+                
+                if (valor_jogador > valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador < valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
             case 5: 
                 valor_jogador = jogadorCartas[i].densidade_populacional; 
                 valor_computador = computadorCartas[i].densidade_populacional; 
+                
+                if (valor_jogador < valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador > valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
             case 6: 
                 valor_jogador = jogadorCartas[i].super_poder; 
                 valor_computador = computadorCartas[i].super_poder; 
+                
+                if (valor_jogador > valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador < valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
             case 7: 
                 valor_jogador = jogadorCartas[i].PIB_per_capita; 
                 valor_computador = computadorCartas[i].PIB_per_capita; 
+                
+                if (valor_jogador > valor_computador) {
+				printf("Você venceu a rodada!\n");
+				pontosJogador++;
+				} else if (valor_jogador < valor_computador){ 
+				printf("O computador venceu a rodadad!\n");
+				 pontosComputador++;
+				} else {
+        		printf("Empate na rodada!\n");
+				}
                 break;
         }
 
-		//definir o ganhador
-
-        if (valor_jogador > valor_computador) {
-            printf("Você venceu a rodada!\n");
-            pontosJogador++;
-        } else if (valor_jogador < valor_computador) {
-            printf("O computador venceu a rodada!\n");
-            pontosComputador++;
-        } else {
-            printf("Empate na rodada!\n");
-        }
     }
 
     printf("\nPontuação final: Você %d x %d Computador\n", pontosJogador, pontosComputador);
@@ -282,4 +343,3 @@ void jogar(Carta cartas[], int quantidade) {
         printf("Foi um empate!\n");
     }
 }
-

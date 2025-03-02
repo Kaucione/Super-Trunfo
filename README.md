@@ -43,8 +43,10 @@ O código utiliza uma estrutura `Carta` para armazenar informações sobre cada 
    - **2:** Usar cartas padrão.
    - **3:** Jogar.
    - **4:** Sair.
+
 2.1. Escolher a entrada das cartas.
 2.2. Escolher iniciar ou sair.
+
 3. No modo de jogo, escolha um atributo para disputar.
 4. O computador também possui cartas, e o vencedor de cada rodada é determinado pelo maior valor do atributo escolhido.
 5. Após todas as rodadas, o programa exibe o placar final.
